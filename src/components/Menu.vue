@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { PropType } from 'vue'
 
 interface MenuItem {
   text: string
@@ -40,36 +40,16 @@ interface MenuItem {
   subMenu?: MenuItem[]
   showsubMenu?: boolean
 }
-
-const menuList = reactive<MenuItem[]>([
-  { text: 'Home', path: '/' },
-  { text: 'About', path: '/' },
-  {
-    text: 'Services',
-    path: '/',
-    subMenu: [
-      { text: 'Web Development', path: '/' },
-      { text: 'Mobile Development', path: '/' },
-      { text: 'Graphic Design', path: '/' }
-    ]
-  },
-  {
-    text: 'Login',
-    path: '/',
-    subMenu: [
-      { text: 'Web Development', path: '/' },
-      { text: 'Mobile Development', path: '/' },
-      { text: 'Graphic Design', path: '/' }
-    ]
-  }
-])
+const props = defineProps<{
+  menuList: MenuItem[]
+}>()
 
 const handleMouseMove = (index: number) => {
-  menuList[index].showsubMenu = true
+  props.menuList[index].showsubMenu = true
 }
 
 const handleMouseLeave = (index: number) => {
-  menuList[index].showsubMenu = false
+  props.menuList[index].showsubMenu = false
 }
 </script>
 
