@@ -1,12 +1,11 @@
 <template>
-    <Menu/>
+    <Menu />
+    <Banner />
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import Menu from '@/components/Menu.vue';
+import Banner from '@/components/Banner.vue'
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
