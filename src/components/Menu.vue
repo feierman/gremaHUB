@@ -112,7 +112,7 @@ const handleMouseLeave = (index: number) => {
           background-color: var(--white-color);
           box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
           border-radius: 0.5rem;
-          z-index: 1 !important;
+          z-index: 1;
 
           .sub-menu-item {
             font: normal 300 0.9rem 'PingFang SC';
