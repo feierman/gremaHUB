@@ -2,15 +2,18 @@
 <template>
   <Menu :menuList="menuList" />
   <Banner :imgdataList="imgdataList" />
+  <Section />
 </template>
 
-<script setup lang="ts">
+<script setup>
 import Menu from '@/components/Menu.vue'
 import Banner from '@/components/Banner.vue'
+import Section from '@/components/Section.vue'
 import { reactive } from 'vue'
-import { menuList as rawMenuList, imgdataList } from '../api/Datalist.js'
-const menuList = reactive(rawMenuList);
-const imgdataList = reactive(imgdataList);
+import { menuList as MenuDataList } from '@/api/MenuDataList.js'
+import { bannerData as BannerDataList } from '@/api/BannerData.js'
+const menuList = reactive(MenuDataList)
+const imgdataList = reactive(BannerDataList)
 </script>
 
 <style lang="scss" scoped></style>
