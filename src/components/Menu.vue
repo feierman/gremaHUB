@@ -31,24 +31,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { PropType } from 'vue'
-
-interface MenuItem {
-  text: string
-  path: string
-  subMenu?: MenuItem[]
-  showsubMenu?: boolean
-}
-const props = defineProps<{
-  menuList: MenuItem[]
-}>()
-
-const handleMouseMove = (index: number) => {
+<script setup>
+const props = defineProps({
+  menuList: Array
+})
+const handleMouseMove = (index) => {
   props.menuList[index].showsubMenu = true
 }
 
-const handleMouseLeave = (index: number) => {
+const handleMouseLeave = (index) => {
   props.menuList[index].showsubMenu = false
 }
 </script>

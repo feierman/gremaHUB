@@ -1,56 +1,75 @@
-<!-- 路径 @/components/Banner.vue  -->
+<!-- 路径 @/components/Banner.vue -->
 <template>
   <div class="carouserl-content">
     <Swiper
+      ref="SwiperRef"
       :modules="modules"
-      autoplay="{ delay: 5000, disableOnInteraction: false }"
+      :autoplay="autoplayOptions"
       :loop="true"
       :navigation="true"
       :pagination="true"
       class="mySwiper"
+      @mouseover="handleMouseover"
+      @mouseleave="handleMouseleave"
+      @swiper="onSwiper"
     >
-      <SwiperSlide v-for="item in props.imgdataList" :key="item.id" :class="item.class">
+      <SwiperSlide v-for="item in imgdataList" :key="item.id" :class="item.class">
         <img :src="item.img" />
-        <div class="title-content">
-          <span class="title">{{ item.title }}</span>
-          <span class="title">{{ item.title1 }}</span>
+        <Bannertext class="title-content">
+          <span>{{ item.title }}</span>
+          <span>{{ item.title1 }}</span>
           <p>{{ item.desc }}</p>
           <p>{{ item.desc1 }}</p>
-          <button class="btn-bdradius">Call To Action</button>
-        </div>
+          <div class="btns">
+            <button class="btn-bdradius">Call To Action</button>
+            <button v-if="item.class !== 'side1'" class="bofang">▶</button>
+            <span v-if="item.class !== 'side1'" v-for="n in 5" class="ripple bowen"></span>
+          </div>
+        </Bannertext>
       </SwiperSlide>
     </Swiper>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, PropType } from 'vue'
-
+<script setup>
+import 'swiper/swiper-bundle.css'
+import { defineProps, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/swiper-bundle.css'
-const modules = [Navigation, Pagination, Autoplay]
+import Bannertext from '@/components/solt/titleDescSolt.vue'
 
-interface ImgData {
-  id: number
-  img: string
-  path: string
-  title: string
-  title1: string
-  desc: string
-  desc1: string
-  class: string
+const modules = [Navigation, Pagination, Autoplay]
+const props = defineProps({
+  imgdataList: Array
+})
+
+const SwiperRef = ref(null)
+const swiperInstance = ref(null)
+
+const autoplayOptions = { delay: 3000, disableOnInteraction: false }
+
+const onSwiper = (swiper) => {
+  swiperInstance.value = swiper
 }
-const props = defineProps<{
-  imgdataList: ImgData[]
-}>()
+
+const handleMouseover = () => {
+  if (swiperInstance.value && swiperInstance.value.autoplay) {
+    swiperInstance.value.autoplay.stop()
+  }
+}
+
+const handleMouseleave = () => {
+  if (swiperInstance.value && swiperInstance.value.autoplay) {
+    swiperInstance.value.autoplay.start()
+  }
+}
 </script>
 
 <style scoped>
 .carouserl-content {
+  position: relative;
   width: 100%;
   height: 100vh;
-  position: relative;
   z-index: 0;
 
   .mySwiper {
@@ -63,36 +82,50 @@ const props = defineProps<{
     }
 
     .title-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: nowrap;
-      width: 800px;
-      height: 100%;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: var(--white-color);
-      gap: 1rem;
-      span {
-        font:
-          normal 700 3rem 'Poppins',
-          sans-serif;
-      }
-      p {
-        font:
-          normal 300 1rem 'Poppins',
-          sans-serif;
+
+      .btns {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        gap: 3rem;
+
+        .bofang {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 4rem;
+          height: 4rem;
+          border-radius: 50%;
+          background-color: var(--white-color);
+          color: var(--primary-color);
+        }
       }
     }
+
     .side2 .title-content {
-      /* 定位左下角 */
       position: absolute;
       left: 0;
-      bottom: 0;
+      right: 0;
       transform: translate(-1rem, -25rem);
+
+      .btns {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .bowen {
+          position: absolute;
+          left: 91%;
+        }
+      }
     }
   }
 }
