@@ -4,7 +4,11 @@
     <Swiper
       ref="SwiperRef"
       :modules="modules"
+<<<<<<< HEAD
       :autoplay="autoplayOptions"
+=======
+      :autoplay="{ delay: 5000, disableOnInteraction: false }"
+>>>>>>> b9fe11f3ba25fd16134ce9e57f7d4743999ae24d
       :loop="true"
       :navigation="true"
       :pagination="true"
@@ -20,11 +24,15 @@
           <span>{{ item.title1 }}</span>
           <p>{{ item.desc }}</p>
           <p>{{ item.desc1 }}</p>
+<<<<<<< HEAD
           <div class="btns">
             <button class="btn-bdradius">Call To Action</button>
             <button v-if="item.class !== 'side1'" class="bofang">▶</button>
             <span v-if="item.class !== 'side1'" v-for="n in 5" class="ripple bowen"></span>
           </div>
+=======
+          <button class="btn-bdradius">Call To Action</button>
+>>>>>>> b9fe11f3ba25fd16134ce9e57f7d4743999ae24d
         </Bannertext>
       </SwiperSlide>
     </Swiper>
@@ -33,6 +41,7 @@
 
 <script setup>
 import 'swiper/swiper-bundle.css'
+<<<<<<< HEAD
 import { defineProps, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
@@ -63,6 +72,17 @@ const handleMouseleave = () => {
     swiperInstance.value.autoplay.start()
   }
 }
+=======
+import { defineProps } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import Bannertext from '@/components/solt/titleDescSolt.vue'
+const modules = [Navigation, Pagination, Autoplay]
+
+const props = defineProps({
+  imgdataList: Array
+})
+>>>>>>> b9fe11f3ba25fd16134ce9e57f7d4743999ae24d
 </script>
 
 <style scoped>
@@ -80,13 +100,13 @@ const handleMouseleave = () => {
       height: 100%;
       object-fit: cover;
     }
-
     .title-content {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: var(--white-color);
+<<<<<<< HEAD
 
       .btns {
         position: relative;
@@ -107,6 +127,8 @@ const handleMouseleave = () => {
           color: var(--primary-color);
         }
       }
+=======
+>>>>>>> b9fe11f3ba25fd16134ce9e57f7d4743999ae24d
     }
 
     .side2 .title-content {
