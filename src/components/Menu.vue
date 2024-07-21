@@ -1,6 +1,5 @@
-<!-- 路径 @/components/Menu.vue -->
 <template>
-  <div class="menu-box">
+  <div class="menu-box" ref="menuBox">
     <div class="menu-logo">
       <h2>DreamHUB</h2>
       <router-link to="/">
@@ -32,9 +31,17 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const props = defineProps({
   menuList: Array
 })
+const menuBox = ref(null)
+
 const handleMouseMove = (index) => {
   props.menuList[index].showsubMenu = true
 }
@@ -42,6 +49,19 @@ const handleMouseMove = (index) => {
 const handleMouseLeave = (index) => {
   props.menuList[index].showsubMenu = false
 }
+
+onMounted(() => {
+  gsap.to('.menu-box', {
+    y: 0,
+    opacity: 1,
+    scrollTrigger: {
+      trigger: '.menu-box',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  })
+})
 </script>
 
 <style scoped lang="scss">
@@ -52,7 +72,11 @@ const handleMouseLeave = (index) => {
   align-items: center;
   transition: all 0.3s ease-in-out;
   height: 5rem;
-  margin: 0 5rem;
+  padding: 0 5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--white-color);
 
   .menu-logo {
     flex: 2;
@@ -111,6 +135,7 @@ const handleMouseLeave = (index) => {
             justify-content: center;
             align-items: center;
             padding: 0.8rem 1.2rem;
+
             // 气泡样式
             &::before {
               content: '';
